@@ -34,9 +34,16 @@ class CalendarsController < ApplicationController
       plans.each do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
-      days = { :month => (@todays_date + x).month, :date => (@todays_date+x).day, :plans => today_plans}
+      # today.wday で今日の曜日を数字で取得している (wdayメソッド・・・曜日を0~6で返すメソッド)
+      # 繰り返しのたびに 日,月,火~と進めるためには返ってきた数字に + x する必要がある
+      # + x しないと繰り返しても毎回今日の曜日で処理される
+      wday_num = Date.today.wday + x
+      if wday_num >= 7
+        wday_num = wday_num -7
+      end
+      # :wday => wdays[wday_num] ・・・wdays配列から添え字の取得のために、変数 wday_num を使用している 
+      days = { :month => (@todays_date + x).month, :date => (@todays_date + x).day, :plans => today_plans, :wday => wdays[wday_num]}
       @week_days.push(days)
     end
-
   end
 end
