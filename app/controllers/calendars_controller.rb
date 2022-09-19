@@ -41,8 +41,8 @@ class CalendarsController < ApplicationController
       if wday_num >= 7
         wday_num = wday_num -7
       end
-      # :wday => wdays[wday_num] ・・・wdays配列から添え字の取得のために、変数 wday_num を使用している 
-      days = { :month => (@todays_date + x).month, :date => (@todays_date + x).day, :plans => today_plans, :wday => wdays[wday_num]}
+      # wday: wdays[wday_num] ・・・wdays配列から添え字の取得のために、変数 wday_num を使用している 
+      days = { month: (@todays_date + x).month, date: (@todays_date + x).day, plans: today_plans, wday: wdays[wday_num]}
       @week_days.push(days)
     end
   end
